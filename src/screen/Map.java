@@ -12,12 +12,13 @@ public class Map{
 	public static int[][] moveMap;
 	public static Tile[][] tileMap;
 	public static int[][] buildingMap;
+	public static BorderPane pane;
 	public RightBar rightBar;
 	public topBar top;
 	public Map(Stage primaryStage, Faction f) {
-		BorderPane pane = new BorderPane();
+		pane = new BorderPane();
 		top = new topBar(f,primaryStage.getWidth(),primaryStage);
-		rightBar = new RightBar(f,findBounds(primaryStage.getHeight(),primaryStage.getWidth()));
+		rightBar = new RightBar(f,findBounds(primaryStage.getHeight(),primaryStage.getWidth()),primaryStage);
 		GridPane map = new GridPane();
 		unitMap = new int[50][60];
 		buildingMap = new int[50][60];
@@ -75,7 +76,9 @@ public class Map{
 		pane.setLeft(map);
 		primaryStage.getScene().setRoot(pane);;	
 	}
-	
+	public static void back(Stage primaryStage) {
+		primaryStage.getScene().setRoot(pane);
+	}
 	public Double findBounds(Double height, Double width) {
 		Double mapheight = height - 30;
 		Double mapwidth = width - 120;

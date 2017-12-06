@@ -29,6 +29,7 @@ public class CityHandler {
 		GameHandler.deSelectUnit();
 		GameHandler.updateYield(s.getOwner());
 		cities.add(c);
+		s.getOwner().harvest();
 	}
 	public static void spawnCityAI(Settler s) {
 		City c = new City(s.getOwner());

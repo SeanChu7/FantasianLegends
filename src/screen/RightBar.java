@@ -22,7 +22,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
 import unit.RangeUnit;
 import unit.Settler;
 import unit.Unit;
@@ -42,7 +42,7 @@ public class RightBar extends VBox{
 	Text queue = new Text();
 	VBox bottom;
 	Double height;
-	public RightBar(Faction f, Double h) {
+	public RightBar(Faction f, Double h,Stage primaryStage) {
 		height = h;
 		turnNum = 1;
 		bottom = new VBox();
@@ -54,6 +54,7 @@ public class RightBar extends VBox{
 		endTurn = new Button("End Turn");
 		endTurn.setPrefWidth(120);
 		research.setPrefWidth(120);
+		research.setOnAction(e -> ResearchScreen.displayResearch(f, primaryStage));
 		pane.add(notif, 0, 1);
 		pane.add(endTurn, 0, 2);
 		bottom.getChildren().add(pane);

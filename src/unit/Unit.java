@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 public class Unit implements Constructable{
 
-	public static final Image Unitdisplay = new Image("Unit.png");
+	public static Image Unitdisplay = new Image("Unit.png");
 	private Faction owner;
 	protected int movement;
 	protected int movesleft;

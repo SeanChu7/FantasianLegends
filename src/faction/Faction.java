@@ -11,6 +11,7 @@ import unit.Unit;
 public class Faction {
 	private Research techGoal;
 	private List<Research> researched;
+	private int researchLvl;
 	private List<Building> canBuild;
 	private List<Unit> AvailUnits;
 	private List<Unit> units;
@@ -38,6 +39,23 @@ public class Faction {
 		science = 0;
 		scienceInc = 0;
 		upkeep = 0;
+		researched = new ArrayList<Research>();
+		researchLvl = 1;
+	}
+	public List<Research> getResearched(){
+		return researched;
+	}
+	public void setTechGoal(Research r) {
+		techGoal = r;
+	}
+	public Research getTechGoal() {
+		return techGoal;
+	}
+	public int getresearchLvl() {
+		return researchLvl;
+	}
+	public void setResearchLvl(int i) {
+		researchLvl = i;
 	}
 	public String toString() {
 		return name;

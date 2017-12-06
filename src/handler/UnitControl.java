@@ -17,7 +17,7 @@ public class UnitControl {
 	public static void spawnUnit(Unit u,int x, int y) {
 		Map.unitMap[x][y] = u.getOwner().getNum();
 		Map.moveMap[x][y] =  0;
-		Map.tileMap[x][y].displayUnit(Unit.Unitdisplay);
+		Map.tileMap[x][y].displayUnit(u.Unitdisplay);
 		u.getOwner().getUnits().add(u);
 		units.add(u);
 	}
@@ -37,7 +37,7 @@ public class UnitControl {
 		Map.moveMap[u.getX()][u.getY()] = Map.tileMap[u.getX()][u.getY()].getMovement();
 	}
 	public static void display(Unit u) {
-		Map.tileMap[u.getX()][u.getY()].displayUnit(Unit.Unitdisplay);
+		Map.tileMap[u.getX()][u.getY()].displayUnit(u.Unitdisplay);
 	}
 
 	public static void initalize(Unit u) {

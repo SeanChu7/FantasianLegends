@@ -35,7 +35,9 @@ public class FactionScreen {
 		}
 		factionChoice.setItems(items);
 		Text factionselected = new Text("Faction chosen: ");
+		factionselected.setFont(Font.font("Verdana",40));
 		Text factionDesc = new Text("Faction Attributes: ");
+		factionDesc.setFont(Font.font("Verdana",30));
 		factionChoice.valueProperty().addListener(e -> {
 			factionselected.setText("Faction chosen: " + factionChoice.getValue().toString());
 			factionDesc.setText("Faction Attributes: " + factionChoice.getValue().getDesc());

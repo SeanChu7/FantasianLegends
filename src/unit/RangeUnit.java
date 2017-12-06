@@ -6,8 +6,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 public class RangeUnit extends Unit{
-
-	private int rngStr;
+	public RangeUnit() {
+		
+	}
+	protected int rngStr;
 	public RangeUnit(int m, int xCor, int yCor, int cost,int maintenance,int health, int meleeStr, int rangeStrength, int range) {
 		super(m,xCor,yCor,cost,health,meleeStr,maintenance);
 		rngStr = rangeStrength;
