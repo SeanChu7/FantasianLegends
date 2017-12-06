@@ -3,8 +3,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-
-import faction.Faction;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import screen.Map;
@@ -255,7 +253,9 @@ public class UnitControl {
 	public static void move(Unit u, int xCor, int yCor) {
 		die(u);
 		spawnUnit(u,xCor,yCor);
-		u.setMovesLeft(moveReq[xCor][yCor]);
+		u.setMovesLeft(u.getMoveLeft()-moveReq[xCor][yCor]);
+		if(u.getMoveLeft() == 0)
+			GameHandler.moveAbleUnit.remove(u);
 		u.setX(xCor);
 		u.setY(yCor);
 		GameHandler.deSelectUnit();

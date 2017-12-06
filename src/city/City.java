@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
 
@@ -16,8 +15,10 @@ import screen.Map;
 import tile.Forest;
 import tile.Grassland;
 import tile.Hill;
+import tile.Ice;
 import tile.Mountain;
 import tile.Ocean;
+import tile.Rockland;
 import tile.Tile;
 import unit.Unit;
 
@@ -122,6 +123,10 @@ public class City {
 				SciGold = addArray(SciGold,harvest(tileYield[3]));
 			else if (t instanceof Ocean)
 				SciGold = addArray(SciGold,harvest(tileYield[4]));
+			else if (t instanceof Ice)
+				SciGold = addArray(SciGold,harvest(tileYield[5]));
+			else if (t instanceof Rockland)
+				SciGold = addArray(SciGold,harvest(tileYield[6]));
 		}
 		scienceInc = SciGold[1];
 		goldInc = SciGold[0];

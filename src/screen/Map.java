@@ -1,8 +1,7 @@
 package screen;
+import java.util.Arrays;
 import java.util.Random;
-
 import faction.Faction;
-import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -17,49 +16,64 @@ public class Map{
 	public topBar top;
 	public Map(Stage primaryStage, Faction f) {
 		BorderPane pane = new BorderPane();
-		top = new topBar(f);
+		top = new topBar(f,primaryStage.getWidth());
 		rightBar = new RightBar(f,findBounds(primaryStage.getHeight(),primaryStage.getWidth()));
 		GridPane map = new GridPane();
-		unitMap = new int[60][50];
-		buildingMap = new int[60][50];
-		tileMap = new Tile[60][50];
-		moveMap = new int[60][50];
-		for (int i = 0; i < 60; i++) {
-			for (int g = 0; g < 50; g++) {
-				switch(r.nextInt(5)) {
-				case 0: Ocean o = new Ocean();
-					map.add(o, i, g);
-					tileMap[i][g] = o;
-					moveMap[i][g] =0;
-					break;
-				case 1: Mountain m = new Mountain(); 
-					map.add(m, i, g);
-					tileMap[i][g] = m;
-					moveMap[i][g] = 0;
-					break;
-				case 2: Forest fr = new Forest();
-					map.add(fr, i, g);
-					tileMap[i][g] = fr;
-					moveMap[i][g] = 2;
-					break;
-				case 3: Hill h = new Hill();
-					map.add(h, i, g);
-					tileMap[i][g] = h;
-					moveMap[i][g] = 2;
-					break;
-				case 4: Grassland l = new Grassland();
-					map.add(l, i, g);
-					tileMap[i][g] = l;
-					moveMap[i][g] = 1;
-					break;
+		unitMap = new int[50][60];
+		buildingMap = new int[50][60];
+		tileMap = new Tile[50][60];
+		moveMap = new int[50][60];
+		int[][] testMap = Mapmaker.makeMap();
+		for (int g = 0; g < testMap.length; g++) {
+			for (int i = 0; i < testMap[0].length; i++) {
+					if(testMap[g][i] == 0) {
+						Grassland o = new Grassland();
+						map.add(o, i, g);
+						moveMap[g][i] = 1;
+						tileMap[g][i] = o;
+					}
+					else if(testMap[g][i] == 1) {
+						Forest o = new Forest();
+						map.add(o, i, g);
+						moveMap[g][i] = 2;
+						tileMap[g][i] = o;
+					}
+					else if(testMap[g][i] == 2) {
+						Hill o = new Hill();
+						map.add(o, i, g);
+						moveMap[g][i] = 2;
+						tileMap[g][i] = o;
+					}
+					else if(testMap[g][i] == 3) {
+						Mountain o = new Mountain();
+						map.add(o, i, g);
+						moveMap[g][i] = 0;
+						tileMap[g][i] = o;
+					}
+					else if(testMap[g][i] == 4) {
+						Ocean o = new Ocean();
+						map.add(o, i, g);
+						moveMap[g][i] = 0;
+						tileMap[g][i] = o;
+					}
+					else if(testMap[g][i] == 5) {
+						Ice o = new Ice();
+						map.add(o, i, g);
+						moveMap[g][i] = 1;
+						tileMap[g][i] = o;
+					}
+					else if(testMap[g][i] == 6) {
+						Rockland o = new Rockland();
+						map.add(o, i, g);
+						moveMap[g][i] = 1;
+						tileMap[g][i] = o;
+					}
 				}
 			}
-		}
 		pane.setTop(top);
 		pane.setCenter(rightBar);
 		pane.setLeft(map);
-		primaryStage.getScene().setRoot(pane);;
-		
+		primaryStage.getScene().setRoot(pane);;	
 	}
 	
 	public Double findBounds(Double height, Double width) {

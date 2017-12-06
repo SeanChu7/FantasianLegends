@@ -5,9 +5,7 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import screen.Map;
 import screen.RightBar;
-import tile.Forest;
-import tile.Grassland;
-import tile.Hill;
+import tile.Buildable;
 import unit.RangeUnit;
 import unit.Settler;
 import unit.Unit;
@@ -28,7 +26,7 @@ public class ProcessButtons {
 			}
 		}
 		for (Coordinate g: c.getTiles()) {
-			if(Map.buildingMap[g.getX()][g.getY()] == 0 && (Map.tileMap[g.getX()][g.getY()] instanceof Grassland || Map.tileMap[g.getX()][g.getY()] instanceof Forest|| Map.tileMap[g.getX()][g.getY()] instanceof Hill))
+			if(Map.buildingMap[g.getX()][g.getY()] == 0 && (Map.tileMap[g.getX()][g.getY()] instanceof Buildable))
 				Map.tileMap[g.getX()][g.getY()].setOnMouseClicked(e->GameHandler.constructBuilding(c,g));
 		}
 		
@@ -39,7 +37,7 @@ public class ProcessButtons {
 			Map.tileMap[c.getX()][c.getY()].setOnMouseClicked(e->GameHandler.selectCity(c));
 		}
 		for (Unit u : UnitControl.units) {
-			if (f.getUnits().contains(u)) {
+			if (GameHandler.moveAbleUnit.contains(u)) {
 				Map.tileMap[u.getX()][u.getY()].setOnMouseClicked(e->GameHandler.selectUnit(u));
 			}
 			else

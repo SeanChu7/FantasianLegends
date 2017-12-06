@@ -47,7 +47,7 @@ public class Unit implements Constructable{
 		return movesleft;
 	}
 	public void setMovesLeft(int x) {
-		movesleft = Math.max(0, movesleft-x);
+		movesleft = Math.max(x, 0);
 	}
 	public String toString() {
 		return name;

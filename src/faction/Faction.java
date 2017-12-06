@@ -29,7 +29,9 @@ public class Faction {
 		units = new ArrayList<Unit>();
 		gold = 0;
 		goldInc = 0;
-		tileYield = new int[][] {{4,0,0,0},{2,2,0,0},{1,3,0,0},{0,2,0,2},{1,0,3,0}};
+		//TileYield is as follows, Food-Cons-Gold-Sci
+		//Grassland-Forest-Hill-Mountain-Ocean-Ice-Rockland
+		tileYield = new int[][] {{4,0,0,0},{2,2,0,0},{1,3,0,0},{0,2,0,2},{1,0,3,0},{0,0,1,3},{0,3,0,1}};
 		cities = new ArrayList<City>();
 		science = 0;
 		scienceInc = 0;

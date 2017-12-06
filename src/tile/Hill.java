@@ -3,7 +3,7 @@ package tile;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class Hill extends Tile{
+public class Hill extends Tile implements Buildable{
 
 	public static final Image background = new Image("Hill.png");
 	public Hill() {

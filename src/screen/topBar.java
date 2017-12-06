@@ -7,18 +7,19 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
-import javafx.scene.paint.Color;
 
-public class topBar extends BorderPane{
+public class topBar extends HBox{
 	Text science = new Text();
 	Text gold = new Text();
 	Faction faction;
-	public topBar(Faction f) {
+	Double width;
+	public topBar(Faction f, double w) {
+		width = w;
 		GridPane pane = new GridPane();
 		faction = f;
 		updateScience();
@@ -28,13 +29,14 @@ public class topBar extends BorderPane{
 		gold.setStroke(Paint.valueOf("WHITE"));
 		pane.add(gold, 1, 0);
 		pane.setHgap(10);
-		this.setLeft(pane);
+		this.getChildren().add(pane);
 		pane.setAlignment(Pos.CENTER_LEFT);
 		Button close = new Button("X");
 		//close.setOnAction(e->);
 		close.setCancelButton(true);
-		this.setRight(close);
-		close.setVisible(false);
+		close.setPrefWidth(120);
+		this.setSpacing(width-305);
+		this.getChildren().add(close);
 		this.setBackground(new Background(new BackgroundFill(Paint.valueOf("black"),CornerRadii.EMPTY,Insets.EMPTY)));
 	}
 	public void update() {

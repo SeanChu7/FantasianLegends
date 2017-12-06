@@ -1,5 +1,4 @@
 package handler;
-import faction.Faction;
 import screen.Map;
 import tile.Forest;
 import tile.Hill;
@@ -49,6 +48,7 @@ public class ProcessCombat {
 				break;
 			}
 		}
+		GameHandler.moveAbleUnit.remove(u);
 	}
 	public static void Rangedattack(RangeUnit u, int x , int y) {
 		if (Math.abs((x+y)-(u.getX()+u.getY())) > u.getRng()){
@@ -73,6 +73,7 @@ public class ProcessCombat {
 				break;
 			}
 		}
+		GameHandler.moveAbleUnit.remove(u);
 	}
 	public static void aftermath(Unit attacker, Unit defender) {
 		if (attacker.getHealth() <= 0 && defender.getHealth() <= 0 ) {

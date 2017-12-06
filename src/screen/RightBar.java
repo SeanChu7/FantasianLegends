@@ -22,6 +22,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import unit.RangeUnit;
 import unit.Settler;
 import unit.Unit;
@@ -32,7 +33,8 @@ public class RightBar extends VBox{
 	public Button unitDie;
 	public Button endTurn;
 	public Button settle;
-	Text notif;
+	private Text notif;
+	private int turnNum;
 	public VBox unitInf;
 	public VBox cityInf;
 	public ListView<Constructable> canBuild = new ListView<Constructable>();
@@ -42,12 +44,16 @@ public class RightBar extends VBox{
 	Double height;
 	public RightBar(Faction f, Double h) {
 		height = h;
+		turnNum = 1;
 		bottom = new VBox();
 		GridPane pane = new GridPane();
 		research = new Button("Research");
 		pane.add(research, 0, 0);
-		notif = new Text();
+		notif = new Text("Turn Number: " + turnNum);
+		notif.setStroke(Color.WHITE);
 		endTurn = new Button("End Turn");
+		endTurn.setPrefWidth(120);
+		research.setPrefWidth(120);
 		pane.add(notif, 0, 1);
 		pane.add(endTurn, 0, 2);
 		bottom.getChildren().add(pane);
@@ -176,5 +182,9 @@ public class RightBar extends VBox{
 		if (!this.getChildren().contains(bottom))
 			this.getChildren().add(bottom);
 		this.setAlignment(Pos.BOTTOM_LEFT);
+	}
+	public void updateNotif() {
+		turnNum++;
+		notif.setText("Turn Number: " + turnNum);
 	}
 }

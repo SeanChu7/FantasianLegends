@@ -1,6 +1,5 @@
 package screen;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -20,9 +19,17 @@ public class StartScreen {
 		BorderPane.setAlignment(title, Pos.CENTER);
 		GridPane menu = new GridPane();
 		Button start = new Button("New Game");
+		start.setPrefWidth(120);
+		start.setPrefHeight(50);
 		Button load = new Button("Load Game");
+		load.setPrefWidth(120);
+		load.setPrefHeight(50);
 		Button help = new Button("Tutorial");
+		help.setPrefWidth(120);
+		help.setPrefHeight(50);
 		Button quit = new Button("Quit");
+		quit.setPrefWidth(120);
+		quit.setPrefHeight(50);
 		menu.add(start, 0, 0);
 		menu.add(load, 0, 1);
 		menu.add(help, 0, 2);
