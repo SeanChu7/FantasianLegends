@@ -1,4 +1,5 @@
 package handler;
+import city.City;
 import screen.Map;
 import tile.Forest;
 import tile.Hill;
@@ -30,8 +31,9 @@ public class ProcessCombat {
 		if (Math.abs((x+y)-(u.getX()+u.getY())) > u.getRng()){
 			moveToAttack(u,x,y);
 		}
-		double atkStr = (u.getMelee()*1.2)*(u.getHealth()/100);
+		double atkStr = (u.getMelee()*1.2)*(u.getHealth()/100.0);
 		double defStr = 0;
+		boolean found = false;
 		double[] battleResults;
 		Tile defTile = Map.tileMap[x][y];
 		for(Unit g : UnitControl.units) {
@@ -45,15 +47,31 @@ public class ProcessCombat {
 				u.setHealth((int)(u.getHealth()-battleResults[1]));
 				g.setHealth((int)(g.getHealth()-battleResults[0]));
 				aftermath(u,g);
+				found = true;
 				break;
 			}
 		}
+		if (!found) {
+			for (City c: CityHandler.cities) {
+				for (int i = 0; i < c.getBuildings().size(); i++) {
+					if (c.getBuildings().get(i).getX() == x && c.getBuildings().get(i).getY() == y) {
+						defStr = c.getDefStr();
+						battleResults = calcDmg(atkStr,defStr);
+						u.setHealth((int)(u.getHealth()-battleResults[1]));
+						c.setHealth((int)(c.getHealth()-battleResults[0]));
+						aftermath(u,c);
+					}
+				}
+			}
+		}
 		GameHandler.moveAbleUnit.remove(u);
+		GameHandler.deSelectUnit();
 	}
 	public static void Rangedattack(RangeUnit u, int x , int y) {
 		if (Math.abs((x+y)-(u.getX()+u.getY())) > u.getRng()){
 			moveToAttack(u,x,y);
 		}
+		boolean found = false;
 		double atkStr = (u.getrangeStrength()*1.2)*(u.getHealth()/100);
 		double defStr = 0;
 		double[] battleResults;
@@ -70,10 +88,33 @@ public class ProcessCombat {
 				if (g.getHealth() <= 0)
 					UnitControl.die(g);
 				GameHandler.deSelectUnit();
+				found = true;
 				break;
 			}
 		}
+		if (!found) {
+			for (City c: CityHandler.cities) {
+				for (int i = 0; i < c.getBuildings().size(); i++) {
+					if (c.getBuildings().get(i).getX() == x && c.getBuildings().get(i).getY() == y) {
+						defStr = c.getDefStr();
+						battleResults = calcDmg(atkStr,defStr);
+						u.setHealth((int)(u.getHealth()-battleResults[1]));
+						c.setHealth((int)(c.getHealth()-battleResults[0]));
+						aftermath(u,c);
+					}
+				}
+			}
+		}
 		GameHandler.moveAbleUnit.remove(u);
+	}
+	public static void aftermath(Unit attacker, City defender) {
+		if (attacker.getHealth() <= 0) {
+			UnitControl.die(attacker);
+		}
+		if (defender.getHealth() <= 0) {
+			defender.getFaction().getCities().remove(defender);
+			CityHandler.burnCity(defender);
+		}
 	}
 	public static void aftermath(Unit attacker, Unit defender) {
 		if (attacker.getHealth() <= 0 && defender.getHealth() <= 0 ) {

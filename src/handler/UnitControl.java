@@ -63,9 +63,14 @@ public class UnitControl {
 			showAttackRange(x,y,rng,num);
 		}
 		else {
-		if (y+1 > Map.moveMap[0].length) {
+		if (y+1 >= Map.moveMap[0].length) {
 		}
 		else if(Map.unitMap[x][y+1] != 0 && Map.unitMap[x][y+1] != num)	{
+			inRangeUnit.add(new Coordinate(x,y+1));
+			Map.tileMap[x][y+1].setBorder(addBorder(Color.RED));
+			showAttackRange(x,y+1,rng,num);
+		}
+		else if(Map.buildingMap[x][y+1] != 0 && Map.buildingMap[x][y+1] != num)	{
 			inRangeUnit.add(new Coordinate(x,y+1));
 			Map.tileMap[x][y+1].setBorder(addBorder(Color.RED));
 			showAttackRange(x,y+1,rng,num);
@@ -87,6 +92,11 @@ public class UnitControl {
 			Map.tileMap[x][y-1].setBorder(addBorder(Color.RED));
 			showAttackRange(x,y-1,rng,num);
 		}
+		else if(Map.buildingMap[x][y-1] != 0 && Map.buildingMap[x][y-1] != num)	{
+			inRangeUnit.add(new Coordinate(x,y-1));
+			Map.tileMap[x][y-1].setBorder(addBorder(Color.RED));
+			showAttackRange(x,y-1,rng,num);
+		}
 		else {
 			if(moving) {
 				if(Map.unitMap[x][y-1] == 0) {
@@ -97,9 +107,14 @@ public class UnitControl {
 			}
 			showMoveRangeFlying(x,y-1,moves - 1,moving,rng,num,iterations+1);
 		}
-		if (x+1 > Map.moveMap.length) {
+		if (x+1 >= Map.moveMap.length) {
 		}
 		else if(Map.unitMap[x+1][y] != 0 && Map.unitMap[x+1][y] != num)	{
+			inRangeUnit.add(new Coordinate(x+1,y));
+			Map.tileMap[x+1][y].setBorder(addBorder(Color.RED));
+			showAttackRange(x+1,y,rng,num);
+		}
+		else if(Map.buildingMap[x+1][y] != 0 && Map.buildingMap[x+1][y] != num)	{
 			inRangeUnit.add(new Coordinate(x+1,y));
 			Map.tileMap[x+1][y].setBorder(addBorder(Color.RED));
 			showAttackRange(x+1,y,rng,num);
@@ -121,6 +136,11 @@ public class UnitControl {
 			Map.tileMap[x-1][y].setBorder(addBorder(Color.RED));
 			showAttackRange(x-1,y,rng,num);
 		}
+		else if(Map.buildingMap[x-1][y] != 0 && Map.buildingMap[x-1][y] != num)	{
+			inRangeUnit.add(new Coordinate(x-1,y));
+			Map.tileMap[x-1][y].setBorder(addBorder(Color.RED));
+			showAttackRange(x-1,y,rng,num);
+		}
 		else {
 			if(moving) {
 				if(Map.unitMap[x-1][y] == 0) {
@@ -138,9 +158,13 @@ public class UnitControl {
 			
 		}
 		else {
-			if (y+1 > Map.moveMap[0].length) {
+			if (y+1 >= Map.moveMap[0].length) {
 			}
 			else if(Map.unitMap[x][y+1] != 0 && Map.unitMap[x][y+1] != num)	{
+				inRangeUnit.add(new Coordinate(x,y+1));
+				Map.tileMap[x][y+1].setBorder(addBorder(Color.RED));
+			}
+			else if(Map.buildingMap[x][y+1] != 0 && Map.buildingMap[x][y+1] != num)	{
 				inRangeUnit.add(new Coordinate(x,y+1));
 				Map.tileMap[x][y+1].setBorder(addBorder(Color.RED));
 			}
@@ -151,10 +175,18 @@ public class UnitControl {
 				inRangeUnit.add(new Coordinate(x,y-1));
 				Map.tileMap[x][y-1].setBorder(addBorder(Color.RED));
 			}
+			else if(Map.buildingMap[x][y-1] != 0 && Map.buildingMap[x][y-1] != num)	{
+				inRangeUnit.add(new Coordinate(x,y-1));
+				Map.tileMap[x][y-1].setBorder(addBorder(Color.RED));
+			}
 			showAttackRange(x,y-1,rng-1,num);
-			if(x+1 > Map.moveMap.length) {
+			if(x+1 >= Map.moveMap.length) {
 			}
 			else if(Map.unitMap[x+1][y] != 0 && Map.unitMap[x+1][y] != num)	{
+				inRangeUnit.add(new Coordinate(x+1,y));
+				Map.tileMap[x+1][y].setBorder(addBorder(Color.RED));
+			}
+			else if(Map.buildingMap[x+1][y] != 0 && Map.buildingMap[x+1][y] != num)	{
 				inRangeUnit.add(new Coordinate(x+1,y));
 				Map.tileMap[x+1][y].setBorder(addBorder(Color.RED));
 			}
@@ -162,6 +194,10 @@ public class UnitControl {
 			if(x - 1 < 0) {
 			}
 			else if(Map.unitMap[x-1][y] != 0  && Map.unitMap[x-1][y] != num) {
+				inRangeUnit.add(new Coordinate(x-1,y));
+				Map.tileMap[x-1][y].setBorder(addBorder(Color.RED));
+			}
+			else if(Map.buildingMap[x-1][y] != 0  && Map.buildingMap[x-1][y] != num) {
 				inRangeUnit.add(new Coordinate(x-1,y));
 				Map.tileMap[x-1][y].setBorder(addBorder(Color.RED));
 			}
@@ -173,15 +209,20 @@ public class UnitControl {
 			showAttackRange(x,y,rng,num);
 		}
 		else {
-		if (y+1 > Map.moveMap[0].length) {
+		if (y+1 >= Map.moveMap[0].length) {
 		}
 		else if(Map.unitMap[x][y+1] != 0 && Map.unitMap[x][y+1] != num)	{
 			inRangeUnit.add(new Coordinate(x,y+1));
 			Map.tileMap[x][y+1].setBorder(addBorder(Color.RED));
-			showAttackRange(x,y+1,rng,num);
+			showAttackRange(x,y+1,rng-1,num);
+		}
+		else if(Map.buildingMap[x][y+1] != 0 && Map.buildingMap[x][y+1] != num)	{
+			inRangeUnit.add(new Coordinate(x,y+1));
+			Map.tileMap[x][y+1].setBorder(addBorder(Color.RED));
+			showAttackRange(x,y+1,rng-1,num);
 		}
 		else if (Map.moveMap[x][y+1] == 0) {
-			showAttackRange(x,y+1,rng,num);
+			showAttackRange(x,y+1,rng-1,num);
 		}
 		else {
 			if(moving) {
@@ -195,10 +236,15 @@ public class UnitControl {
 		else if(Map.unitMap[x][y-1] != 0 && Map.unitMap[x][y-1] != num)	{
 			inRangeUnit.add(new Coordinate(x,y-1));
 			Map.tileMap[x][y-1].setBorder(addBorder(Color.RED));
-			showAttackRange(x,y-1,rng,num);
+			showAttackRange(x,y-1,rng-1,num);
+		}
+		else if(Map.buildingMap[x][y-1] != 0 && Map.buildingMap[x][y-1] != num)	{
+			inRangeUnit.add(new Coordinate(x,y-1));
+			Map.tileMap[x][y-1].setBorder(addBorder(Color.RED));
+			showAttackRange(x,y-1,rng-1,num);
 		}
 		else if (Map.moveMap[x][y-1] == 0) {
-			showAttackRange(x,y-1,rng,num);
+			showAttackRange(x,y-1,rng-1,num);
 		}
 		else {
 			if(moving) {
@@ -207,15 +253,20 @@ public class UnitControl {
 			Map.tileMap[x][y-1].setBorder(addBorder(Color.DARKBLUE));}
 			showMoveRange(x,y-1,moves - Map.moveMap[x][y-1],moving,rng,num,iterations+Map.moveMap[x][y-1]);
 		}
-		if (x+1 > Map.moveMap.length) {
+		if (x+1 >= Map.moveMap.length) {
 		}
 		else if(Map.unitMap[x+1][y] != 0 && Map.unitMap[x+1][y] != num)	{
 			inRangeUnit.add(new Coordinate(x+1,y));
 			Map.tileMap[x+1][y].setBorder(addBorder(Color.RED));
-			showAttackRange(x+1,y,rng,num);
+			showAttackRange(x+1,y,rng-1,num);
+		}
+		else if(Map.buildingMap[x+1][y] != 0 && Map.buildingMap[x+1][y] != num)	{
+			inRangeUnit.add(new Coordinate(x+1,y));
+			Map.tileMap[x+1][y].setBorder(addBorder(Color.RED));
+			showAttackRange(x+1,y,rng-1,num);
 		}
 		else if(Map.moveMap[x+1][y] == 0) {
-			showAttackRange(x+1,y,rng,num);
+			showAttackRange(x+1,y,rng-1,num);
 		}
 		else {
 			if(moving) {
@@ -229,10 +280,15 @@ public class UnitControl {
 		else if(Map.unitMap[x-1][y] != 0 && Map.unitMap[x-1][y] != num)	{
 			inRangeUnit.add(new Coordinate(x-1,y));
 			Map.tileMap[x-1][y].setBorder(addBorder(Color.RED));
-			showAttackRange(x-1,y,rng,num);
+			showAttackRange(x-1,y,rng-1,num);
+		}
+		else if(Map.buildingMap[x-1][y] != 0 && Map.buildingMap[x-1][y] != num)	{
+			inRangeUnit.add(new Coordinate(x-1,y));
+			Map.tileMap[x-1][y].setBorder(addBorder(Color.RED));
+			showAttackRange(x-1,y,rng-1,num);
 		}
 		else if(Map.moveMap[x-1][y] == 0) {
-			showAttackRange(x-1,y,rng,num);
+			showAttackRange(x-1,y,rng-1,num);
 		}
 		else {
 			if(moving) {
@@ -252,12 +308,19 @@ public class UnitControl {
 	}*/
 	public static void move(Unit u, int xCor, int yCor) {
 		die(u);
+		u.setX(xCor);
+		u.setY(yCor);
 		spawnUnit(u,xCor,yCor);
 		u.setMovesLeft(u.getMoveLeft()-moveReq[xCor][yCor]);
 		if(u.getMoveLeft() == 0)
 			GameHandler.moveAbleUnit.remove(u);
+		GameHandler.deSelectUnit();
+	}
+	public static void moveAI(Unit u, int xCor, int yCor) {
+		die(u);
 		u.setX(xCor);
 		u.setY(yCor);
-		GameHandler.deSelectUnit();
+		spawnUnit(u,xCor,yCor);
+		reset();
 	}
 }

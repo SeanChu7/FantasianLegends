@@ -1,4 +1,6 @@
 package handler;
+import java.util.ArrayList;
+
 import city.Building;
 import city.City;
 import city.CityCenter;
@@ -16,7 +18,7 @@ import screen.Map;
 import unit.Settler;
 
 public class CityHandler {
-
+	public static ArrayList<City> cities = new ArrayList<City>();
 	public static void spawnCity(Settler s) {
 		City c = new City(s.getOwner());
 		s.getOwner().getCities().add(c);
@@ -26,6 +28,16 @@ public class CityHandler {
 		UnitControl.die(s);
 		GameHandler.deSelectUnit();
 		GameHandler.updateYield(s.getOwner());
+		cities.add(c);
+	}
+	public static void spawnCityAI(Settler s) {
+		City c = new City(s.getOwner());
+		s.getOwner().getCities().add(c);
+		c.setX(s.getX());
+		c.setY(s.getY());
+		spawnBuilding(new CityCenter(s.getX(),s.getY()),c,s.getOwner());
+		UnitControl.die(s);
+		cities.add(c);
 	}
 	public static void spawnBuilding(Building b, City c, Faction f) {
 		Map.buildingMap[b.getX()][b.getY()] = f.getNum();
@@ -33,7 +45,15 @@ public class CityHandler {
 		Map.tileMap[b.getX()][b.getY()].displayBuilding();
 		calcTerritory(b,c,f);
 	}
-	
+	public static void burnCity(City c) {
+		for (Building b: c.getBuildings()) {
+			Map.buildingMap[b.getX()][b.getY()] = 0;
+			Map.tileMap[b.getX()][b.getY()].removeBuilding();
+		}
+		for (Coordinate z : c.getTiles()) {
+			Map.tileMap[z.getX()][z.getY()].removeShade();
+		}
+	}
 	public static void calcTerritory(Building b, City c,Faction f) {
 		c.getTiles().add(new Coordinate(b.getX(),b.getY()));
 		Map.tileMap[b.getX()][b.getY()].setShade(SetShade(f.getColor()));

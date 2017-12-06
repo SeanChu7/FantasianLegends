@@ -2,6 +2,7 @@ package screen;
 
 
 import faction.Faction;
+import handler.ProcessButtons;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -12,13 +13,14 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class topBar extends HBox{
 	Text science = new Text();
 	Text gold = new Text();
 	Faction faction;
 	Double width;
-	public topBar(Faction f, double w) {
+	public topBar(Faction f, double w, Stage primaryStage) {
 		width = w;
 		GridPane pane = new GridPane();
 		faction = f;
@@ -32,7 +34,7 @@ public class topBar extends HBox{
 		this.getChildren().add(pane);
 		pane.setAlignment(Pos.CENTER_LEFT);
 		Button close = new Button("X");
-		//close.setOnAction(e->);
+		close.setOnAction(e->ProcessButtons.processStartbuttons(StartScreen.Setup(primaryStage), primaryStage));
 		close.setCancelButton(true);
 		close.setPrefWidth(120);
 		this.setSpacing(width-305);
@@ -47,6 +49,7 @@ public class topBar extends HBox{
 		science.setText("Science: " + faction.getScience() + "(+"+faction.getScienceInc()+")");
 	}
 	public void updateGold() {
+		faction.harvest();
 		faction.calcUpkeep();
 		faction.checkIncome();
 		gold.setText("Gold: " + faction.getGold() + "(+" +faction.getGoldInc()+")");

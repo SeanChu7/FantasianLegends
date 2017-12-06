@@ -16,10 +16,12 @@ public class Faction {
 	private List<Unit> units;
 	private int gold;
 	private int goldInc;
-	private int[][] tileYield;
+	protected int[][] tileYield;
 	private List<City> cities;
 	private int science;
 	private int scienceInc;
+	protected String name;
+	protected String desc;
 	private int upkeep;
 	private int num;
 	private Color color;
@@ -36,6 +38,12 @@ public class Faction {
 		science = 0;
 		scienceInc = 0;
 		upkeep = 0;
+	}
+	public String toString() {
+		return name;
+	}
+	public String getDesc() {
+		return desc;
 	}
 	public List<Building> getCanBuild(){
 		return canBuild;
@@ -68,6 +76,8 @@ public class Faction {
 		return goldInc;
 	}
 	public void harvest() {
+		goldInc = 0;
+		scienceInc = 0;
 		for(City c : cities) {
 			int[] temp = c.harvest(tileYield);
 			goldInc += temp[0];

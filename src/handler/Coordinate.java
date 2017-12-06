@@ -20,4 +20,7 @@ public class Coordinate {
 				return true;
 		return false;
 	}
+	public String toString() {
+		return "X: "+xCor+ " Y: " + yCor;
+	}
 }

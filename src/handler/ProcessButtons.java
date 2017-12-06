@@ -14,10 +14,9 @@ public class ProcessButtons {
 
 	public static void processStartbuttons(Button[] buttons, Stage primaryStage) {
 		buttons[0].setOnAction(e -> {GameHandler.initiate(primaryStage);;;});
-		buttons[1].setOnAction(e -> {System.out.println("Load");});
-		buttons[2].setOnAction(e -> {System.out.println("Tutorial");});
-		buttons[3].setOnAction(e -> {primaryStage.close();});
-		buttons[3].setCancelButton(true);
+		buttons[1].setOnAction(e -> {System.out.println("Tutorial");});
+		buttons[2].setOnAction(e -> {primaryStage.close();});
+		buttons[2].setCancelButton(true);
 	}
 	public static void processSelectedCity(City c) {
 		for(int i = 0; i < Map.tileMap.length; i++) {
@@ -40,8 +39,9 @@ public class ProcessButtons {
 			if (GameHandler.moveAbleUnit.contains(u)) {
 				Map.tileMap[u.getX()][u.getY()].setOnMouseClicked(e->GameHandler.selectUnit(u));
 			}
-			else
+			else {
 				Map.tileMap[u.getX()][u.getY()].setOnMouseClicked(e->GameHandler.displayUnit(u));
+			}
 		}
 		r.endTurn.setOnMouseClicked(e->GameHandler.endTurn());
 	}

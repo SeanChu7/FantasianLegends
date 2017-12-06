@@ -16,7 +16,7 @@ public class Map{
 	public topBar top;
 	public Map(Stage primaryStage, Faction f) {
 		BorderPane pane = new BorderPane();
-		top = new topBar(f,primaryStage.getWidth());
+		top = new topBar(f,primaryStage.getWidth(),primaryStage);
 		rightBar = new RightBar(f,findBounds(primaryStage.getHeight(),primaryStage.getWidth()));
 		GridPane map = new GridPane();
 		unitMap = new int[50][60];

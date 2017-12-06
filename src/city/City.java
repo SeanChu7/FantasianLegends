@@ -30,6 +30,8 @@ public class City {
 	private Set<Coordinate> tiles;
 	private Faction faction;
 	private int food;
+	private int health;
+	private int DefStr;
 	private int x;
 	private int y;
 	private int foodInc;
@@ -46,6 +48,7 @@ public class City {
 		foodInc = 0;
 		constructInc = 0;
 		scienceInc = 0;
+		health = 100;
 		goldInc = 0;
 		construct = 0;
 		tiles = new HashSet<Coordinate>();
@@ -54,8 +57,20 @@ public class City {
 		construction = new LinkedList<Constructable>();
 		faction = f;
 	}
+	public Faction getFaction() {
+		return faction;
+	}
 	public List<Building> getBeingBuilt(){
 		return beingbuilt;
+	}
+	public int getHealth() {
+		return health;
+	}
+	public void setHealth(int h) {
+		health = h;
+	}
+	public int getDefStr() {
+		return 100+(10*buildings.size());
 	}
 	public Queue<Constructable> getConstruction(){
 		return construction;
@@ -143,8 +158,6 @@ public class City {
 	
 	public void calcFood() {
 		int foodUpkeep = population*2;
-		System.out.println(foodUpkeep);
-		System.out.println(foodInc);
 		food = food + foodInc - foodUpkeep;
 		while(food > 0) {
 			if (food >= foodToNext) {
@@ -165,27 +178,27 @@ public class City {
 				beingbuilt.remove(construction.peek());
 				CityHandler.spawnBuilding((Building) construction.peek(), this, faction);
 				construct -= construction.poll().getCost();
-				System.out.println(buildings);
 				GameHandler.updateYield(faction);
 			}
 			else {
 				if (Map.unitMap[construction.peek().getX()][construction.peek().getY()] ==0) {
 				UnitControl.spawnUnit((Unit) construction.peek(),construction.peek().getX(), construction.peek().getY());
 				construct -= construction.peek().getCost();
-				faction.getUnits().add((Unit) construction.poll());
+				construction.poll();
 				GameHandler.updateYield(faction);
 				}
 			}
 		}
 	}
 	public void addConstruct(Constructable b,Coordinate g) {
-		b.setX(g.getX());
-		b.setY(g.getY());
-		construction.add(b);
-		if (b instanceof Building)
-			beingbuilt.add((Building) b);
-		if (b instanceof Unit)
-			((Unit) b).setOwner(faction);
+		Constructable c = b.clone();
+		c.setX(g.getX());
+		c.setY(g.getY());
+		construction.add(c);
+		if (c instanceof Building)
+			beingbuilt.add((Building) c);
+		if (c instanceof Unit)
+			((Unit) c).setOwner(faction);
 	}
 	public int calcMaint() {
 		int result = 0;

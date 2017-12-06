@@ -187,4 +187,8 @@ public class RightBar extends VBox{
 		turnNum++;
 		notif.setText("Turn Number: " + turnNum);
 	}
+	public void clearDisplay() {
+		removeDisplay(unitInf);
+		removeDisplay(cityInf);
+	}
 }
